@@ -34,12 +34,8 @@ plugins:
 defaults:
   - scope:
       path: ""
-      type: "posts"
     values:
-      license: false
-      aside:
-        toc: true
-      pageview: true
+      layout: "default"
 
 ## => Language and Timezone
 ##############################
