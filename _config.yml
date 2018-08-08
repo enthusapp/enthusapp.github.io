@@ -13,6 +13,8 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
+theme: jekyll-theme-minimal
+
 title: Your awesome title
 email: your-email@example.com
 description: >- # this means to ignore newlines until "baseurl:"
@@ -26,9 +28,23 @@ github_username:  jekyll
 
 # Build settings
 markdown: kramdown
-theme: jekyll-theme-minimal
 plugins:
   - jekyll-feed
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      license: false
+      aside:
+        toc: true
+      pageview: true
+
+## => Language and Timezone
+##############################
+lang: en # the language of your site, "en" (default, English), "zh"(简体中文), "zh-Hans"(简体中文), "zh-Hant"(繁體中文)
+timezone: kr # see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones for the available values
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
