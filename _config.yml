@@ -25,12 +25,6 @@ markdown: kramdown
 plugins:
   - jekyll-feed
 
-defaults:
-  - scope:
-      path: ""
-    values:
-      layout: "default"
-
 ## => Language and Timezone
 ##############################
 lang: en # the language of your site, "en" (default, English), "zh"(简体中文), "zh-Hans"(简体中文), "zh-Hant"(繁體中文)
