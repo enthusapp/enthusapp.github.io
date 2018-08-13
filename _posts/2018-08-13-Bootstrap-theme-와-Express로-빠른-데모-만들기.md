@@ -10,7 +10,6 @@ download 한 Bootstrap 폴더를 Express의 public 폴더로 복사하고 app.js
 
 <code>
 app.use('/dashboard', express.static(path.join(__dirname,'public')));
-
 app.get('/', function(req,res){
   res.redirect('/dashboard');
 });
