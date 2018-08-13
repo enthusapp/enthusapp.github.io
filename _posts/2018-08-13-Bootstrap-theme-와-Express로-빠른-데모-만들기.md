@@ -8,11 +8,9 @@
 ## Bootstrap과 Express 연동
 download 한 Bootstrap 폴더를 Express의 public 폴더로 복사하고 app.js에 root path를 public의 index.html로 설정한다.
 
-<code>
-app.use('/dashboard', express.static(path.join(__dirname,'public')));
-</code>
-<code>
+<pre><code>app.use('/dashboard', express.static(path.join(__dirname,'public')));
+
 app.get('/', function(req,res){
   res.redirect('/dashboard');
 });
-</code>
+</code></pre>
