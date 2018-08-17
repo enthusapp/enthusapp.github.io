@@ -1,3 +1,8 @@
+---
+layout: default
+comments: true
+---
+
 # Bootstrap theme와 Express로 빠른 데모 만들기
 ## Bootstrap open theme 선택
 [https://startbootstrap.com](https://startbootstrap.com)에서 적당한 Bootstrap open theme 선택하고 git clone 등으로 download 한다.

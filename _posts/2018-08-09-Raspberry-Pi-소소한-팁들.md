@@ -1,3 +1,8 @@
+---
+layout: default
+comments: true
+---
+
 # Raspberry Pi 소소한 팁들
 
 ## Screenshot
