@@ -1,3 +1,7 @@
+---
+layout: post
+---
+
 # Raspberry Pi 소소한 팁들
 
 ## Screenshot
