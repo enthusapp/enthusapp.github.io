@@ -28,3 +28,5 @@ cat /var/log/boot.log
 
 #### 해결방법
 <code>fsck</code> 를 이용한 수정 방법이 많이 검색되지만, 그래도 복구가 안되는 경우가 있는 것 같음. 일단 sdcard 를 변경. 근본적인 해결책과 원인 분석은 아직 
+
+[https://github.com/cyoung/stratux/issues/688](https://github.com/cyoung/stratux/issues/688)
