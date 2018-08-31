@@ -11,7 +11,7 @@ Scrot 설치/실행한다. 자세한 링크: [https://www.imore.com/how-take-scr
 ## Node.JS 최신버젼으로 설치
 [https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-16-04](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-16-04)
 
-## Raspberry Pi image 생성 및 백업
+## Raspberry Pi sdcard 작은 size image 백업 
 [http://www.seleads.com/dd-used-space-only-image-file-using-gzip-solved/](http://www.seleads.com/dd-used-space-only-image-file-using-gzip-solved/)
 
 ## Raspberry Pi 부팅과정에서 VNC client 
