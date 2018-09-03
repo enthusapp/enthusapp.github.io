@@ -12,9 +12,8 @@ Scrot 설치/실행한다. 자세한 링크: [https://www.imore.com/how-take-scr
 [https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-16-04](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-16-04)
 
 ## Raspberry Pi sdcard 작은 size 로 image 백업 
-[http://www.seleads.com/dd-used-space-only-image-file-using-gzip-solved/](http://www.seleads.com/dd-used-space-only-image-file-using-gzip-solved/)
-
-단점: 보관하는 이미지의 크기는 줄어들지만 읽고 쓰는 시간이 길어져 쓰기 불편, 사실상 필요가 없다.
+1. [dd 와 gzip 을 사용한 방법](http://www.seleads.com/dd-used-space-only-image-file-using-gzip-solved/) -> 보관하는 이미지의 크기는 줄어들지만 읽고 쓰는 시간이 길어져 쓰기 불편, 사실상 필요가 없다. dd 는 기본적으로 더 작은 사이즈로 image 를 만들지 못한다. 파일 시스템이 데이터를 파티션 섹터에 분산하여 저장하기 때문인것으로 보인다.
+1. [rsync 사용](https://www.ostechnix.com/backup-entire-linux-system-using-rsync/) -> 부팅안됨, 추후 재확인 필요
 
 ## Raspberry Pi 부팅과정에서 VNC client 
 [https://www.raspberrypi.org/forums/viewtopic.php?f=28&t=71698](https://www.raspberrypi.org/forums/viewtopic.php?f=28&t=71698)
