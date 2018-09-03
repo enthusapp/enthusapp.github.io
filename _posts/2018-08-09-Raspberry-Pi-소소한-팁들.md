@@ -14,6 +14,8 @@ Scrot 설치/실행한다. 자세한 링크: [https://www.imore.com/how-take-scr
 ## Raspberry Pi sdcard 작은 size 로 image 백업 
 [http://www.seleads.com/dd-used-space-only-image-file-using-gzip-solved/](http://www.seleads.com/dd-used-space-only-image-file-using-gzip-solved/)
 
+단점: 보관하는 이미지의 크기는 줄어들지만 읽고 쓰는 시간이 길어져 쓰기 불편, 사실상 필요가 없다.
+
 ## Raspberry Pi 부팅과정에서 VNC client 
 [https://www.raspberrypi.org/forums/viewtopic.php?f=28&t=71698](https://www.raspberrypi.org/forums/viewtopic.php?f=28&t=71698)
 
