@@ -12,7 +12,10 @@ Scrot 설치/실행한다. 자세한 링크: [https://www.imore.com/how-take-scr
 [https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-16-04](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-16-04)
 
 ## Systemd 으로 프로그램 실행하기
-[http://www.diegoacuna.me/how-to-run-a-script-as-a-service-in-raspberry-pi-raspbian-jessie/](http://www.diegoacuna.me/how-to-run-a-script-as-a-service-in-raspberry-pi-raspbian-jessie/) 참조, 만약 GUI 를 실행하려면 `[Unit]` 에 `User=root` 를 추가하고 `[Service]` 에는 `Environment=DISPLAY=:0.0` 과 사용자 인증을 위한 `Environment=XAUTHORITY=/home/dogs/.Xauthority` 변수를 추가해야 한다. 무엇보다 로그를 /var/log 아래서 관리할수 있다는 점이 편리하다. 로그를 syslog 에 출력하려면 [https://unix.stackexchange.com/questions/395479/how-to-keep-python-script-running-as-a-systemd-service](https://unix.stackexchange.com/questions/395479/how-to-keep-python-script-running-as-a-systemd-service) 에 나와있는데로 `-u` 옵션을 실행라인에 추가해야 한다.
+[http://www.diegoacuna.me/how-to-run-a-script-as-a-service-in-raspberry-pi-raspbian-jessie/](http://www.diegoacuna.me/how-to-run-a-script-as-a-service-in-raspberry-pi-raspbian-jessie/) 참조, 만약 GUI 를 실행하려면 `[Unit]` 에 `User=root` 를 추가하고 `[Service]` 에는 `Environment=DISPLAY=:0.0` 과 사용자 인증을 위한 `Environment=XAUTHORITY=/home/dogs/.Xauthority` 변수를 추가해야 한다.
+
+##### Systemd 로그 출력
+systemd 를 사용하면 무엇보다 로그를 /var/log 아래서 관리할수 있다는 점이 편리하다. 로그 rotation 나 시간단위 backup 및 로그 삭제를 rlogsys 에서 알아서 해주니 로그 오버플로우, 로그 백업에 대한 걱정을 안해도 된다. python 프로그램의 경우 `-u` 옵션을 실행라인에 추가해야 buffering 없이 syslog 에 출력된다. 정보출처:[https://unix.stackexchange.com/questions/395479/how-to-keep-python-script-running-as-a-systemd-service](https://unix.stackexchange.com/questions/395479/how-to-keep-python-script-running-as-a-systemd-service)
 
 ## Raspberry Pi sdcard 작은 size 로 image 백업 
 1. [dd 와 gzip 을 사용한 방법](http://www.seleads.com/dd-used-space-only-image-file-using-gzip-solved/) -> 보관하는 이미지의 크기는 줄어들지만 읽고 쓰는 시간이 길어져 win32 imager 대신 쓸수는 없다. 하지만 작은 사이즈의 sdcard 를 사용해야 할때는 필요할 수 있다. 같은 회사 제품도 실제 sector 크기가 다르기 때문에 실제 구매를 해봐야만 sdcard 의 sector 수를 알수 있는 것으로 보인다. 한편, dd 는 기본적으로 더 작은 사이즈로 image 를 만들지 못한다. 파일 시스템이 데이터를 파티션 섹터에 분산하여 저장하기 때문인것으로 보인다.
