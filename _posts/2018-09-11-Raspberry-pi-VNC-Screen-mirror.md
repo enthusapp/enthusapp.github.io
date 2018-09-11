@@ -1,3 +1,8 @@
+---
+layout: default
+comments: true
+---
+
 # VNC 를 이용한 Raspberry pi 화면 Mirroring 구현
 
 ## Linux VNC server
