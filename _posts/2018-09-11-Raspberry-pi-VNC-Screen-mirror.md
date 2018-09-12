@@ -16,6 +16,8 @@ tightVNC, vnc4server, realVNC 등이 있지만 Ubuntu Gnome 의 vino 면 충분�
 `$ vncviewer ipaddr`
 
  tightVNC 를 사용할때는 `-compresslevel` 을 0으로 설정해야 화면 떨림이 사라진다. Raspberry Pi의 CPU 성능으로는 compress 기능을 제대로 활용할 수 없는것으로 보인다. compress 기능을 사용하지 못하면 네트워크 부하가 증가하는 단점이 있다.
+ 
+ tightVNC 가 아닌 raspberry pi 에 설치되어 있는 기본 vncviewer 에는 compress 옵션이 없다. 그대로 사용 가능하다.
 
 ## VNC server monitoring
 네트워크 상황이 좋지 않을 경우 VNC 연결이 끊기게 된다. VNC 서버와의 연결을 지속적으로 확인하고 연결이 끊기면 vncviewer 를 재실행 시킨다.
