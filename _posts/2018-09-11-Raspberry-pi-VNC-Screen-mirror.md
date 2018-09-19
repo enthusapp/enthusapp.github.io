@@ -22,7 +22,22 @@ tightVNC, vnc4server, realVNC 등이 있지만 Ubuntu Gnome 의 vino 면 충분�
 ## VNC server monitoring
 네트워크 상황이 좋지 않을 경우 VNC 연결이 끊기게 된다. VNC 서버와의 연결을 지속적으로 확인하고 연결이 끊기면 vncviewer 를 재실행 시킨다.
 
-TODO: 구현중
+구현: [https://github.com/enthusapp/vncmonitor](https://github.com/enthusapp/vncmonitor)
+
+단점, vncviewer 의 로그가 충분하지 않아 동작이 잘 안되고 있는지 육안이 아니고서는 확인이 어렵다. netcat 으로 vncserver port 를 확인하는 방식을 사용했지만 정공법은 아닌것 같다. open source vnc client 들이 많지만 코드 복잡도가 높아 투자시간이 많이 필요해 보인다.
+
+###### open source vnc client 평가
+- noVNC
+  - vnc server 의 데이터를 websocket 으로 변환하여 html5 기반 화면에 투사
+  - JS 기반으로 가장 가볍고 webview 기반 어플에서는 사용이 쉽다.
+  - 기본적으로 compressed 데이터로 전달되기 때문에 느리거나 true color 전달이 안된다.
+- remmina
+  - GTK+ 기반 vnc client
+  - 기본적으로 compressed 를 쓰도록 되어 있는데, 코드를 수정하면 안쓸수도 있을것 같다.
+  - 안정성이 좋아보이고 가장 open source 분석을 시작할만 코드 일수 있다.
+- tigerVNC
+  - real VNC client 에 가장 가까운 open source vnc
+  - 안정성이 궁금하다.
 
 ## VNC client monitoring
 VNC server 에서 연결된 client 의 상태를 감시한다. listen 사용
