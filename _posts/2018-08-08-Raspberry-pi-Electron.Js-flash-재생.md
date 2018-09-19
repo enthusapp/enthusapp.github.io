@@ -11,6 +11,9 @@ chrome 에서 주소창에 `chrome://plugins` 입력하고 세부정보 버튼�
 
 `libpepflashplayer.so` 파일을 Electron.JS 프로젝트의 루트폴더에 복사한다.
 
+## x86 환경에서 Flash Player library 찾기
+[http://ubuntuhandbook.org/index.php/2016/10/pepper-flash-chromium-opera-ubuntu/](http://ubuntuhandbook.org/index.php/2016/10/pepper-flash-chromium-opera-ubuntu/)
+
 ## index.html 작성
 index.html 에 embed 로 Flash 파일 추가하고 main.js 에서 index.html 을 load 하면 재생되는 것을 확인할 수 있다.
 
