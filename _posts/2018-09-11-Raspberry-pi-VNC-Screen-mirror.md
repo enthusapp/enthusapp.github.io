@@ -26,7 +26,7 @@ tightVNC, vnc4server, realVNC 등이 있지만 Ubuntu Gnome 의 vino 면 충분�
 
 단점, vncviewer 의 로그가 충분하지 않아 동작이 잘 안되고 있는지 육안이 아니고서는 확인이 어렵다. netcat 으로 vncserver port 를 확인하는 방식을 사용했지만 정공법은 아닌것 같다. open source vnc client 들이 많지만 코드 복잡도가 높아 투자시간이 많이 필요해 보인다.
 
-###### open source vnc client 평가
+##### open source vnc client 평가
 - noVNC
   - vnc server 의 데이터를 websocket 으로 변환하여 html5 기반 화면에 투사
   - JS 기반으로 가장 가볍고 webview 기반 어플에서는 사용이 쉽다.
