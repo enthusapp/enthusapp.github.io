@@ -1,3 +1,5 @@
+원본 링크: [https://trac.ffmpeg.org/wiki/StreamingGuide]
+
 # Streaming
 
 FFmpeg can basically stream through one of two ways:  It either streams to a some "other server", which re-streams for it to multiple clients, or it can stream via UDP/TCP directly to some single destination receiver, or alternatively directly to a multicast destination.  Theoretically you might be able to send to multiple receivers via [https://trac.ffmpeg.org/wiki/StreamingGuide](Creating Multiple Outputs) but there is no built-in full blown server.
