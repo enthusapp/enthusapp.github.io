@@ -1,3 +1,8 @@
+---
+layout: default
+comments: true
+---
+
 원본 링크: [https://trac.ffmpeg.org/wiki/StreamingGuide]
 
 # Streaming
