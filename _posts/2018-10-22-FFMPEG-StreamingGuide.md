@@ -74,12 +74,11 @@ ffmpeg -f x11grab -s 1920x1200 -framerate 15 -i :0.0+1920,0 -f pulse -ac 2 -i de
 
 ## Latency(지연)
 
-x264 stream 의 I-frame 은 250 frame 마다 한번 씩 발생하고 1개의 I-frame 도 없으면 수신자는 영상을 재생할 수 없습니다. 따라서 [x264의 zerolatency setting](https://trac.ffmpeg.org/wiki/Encode/H.264) 과 [frame 크기를 늘리고 품질은 낮추는 방법](http://mewiki.project357.com/wiki/X264_Encoding_Suggestions)을 이용해 I-frame 을 더 자주 보내는 방식으로 시작 지연을 줄일수 있습니다. 다만 증가된 I-frame 의 횟수만큼 stream 데이터의 양은 증가하게 됩니다. [dshow audio_buffer_size](http://ffmpeg.org/ffmpeg.html#Options) 를 사용하여 audio 에서 발생하는 지연을 줄이는 방법이 있으며 broadcast 서버의 지연을 최소화하는 방법, 그리고 마지막으로 수신 프로그램의 cache 를 비활성화 하는 방법이 있습니다.
+x264 stream 은 250 frame 마다 1개의 I-frame 을 사용합니다. 따라서 I-frame 을 수신하지 못하면 최악의 경우 250 frame 이 지날때까지 영상을 재생할수 없습니다. [x264의 zerolatency setting](https://trac.ffmpeg.org/wiki/Encode/H.264) 과 [frame 크기를 늘리고 품질은 낮추는 방법](http://mewiki.project357.com/wiki/X264_Encoding_Suggestions)은 I-frame 을 더 자주 보내는 방식의 시작 지연 감소 방법입니다. 다만 증가된 I-frame 의 횟수만큼 stream 데이터의 양은 증가하게 됩니다. 또한, [dshow audio_buffer_size](http://ffmpeg.org/ffmpeg.html#Options) 를 사용하여 audio 에서 발생하는 지연을 줄이는 방법이 있으며 broadcast 서버의 지연을 최소화하는 방법, 그리고 마지막으로 수신 프로그램의 cache 를 비활성화 하는 방법이 있습니다.
 
-가끔 audio 코덱들은 각각에 존재하는 지연시간이 있기 때문에 libmp3lame 대신 speex, opus 를 사용하는것도 하나의 방법입니다.
+libmp3lame 대신 speex, opus 를 사용해 audio 코덱에 존재하는 지연시간을 줄이고, [wowza](http://www.wowza.com/forums/content.php?81-How-to-achieve-the-lowest-latency-from-capture-to-playback) 에 설명된 방법으로 서버의 지연을 줄일 수도 있습니다.
 
-서버의 지연을 줄이는 방법은 [wowza](http://www.wowza.com/forums/content.php?81-How-to-achieve-the-lowest-latency-from-capture-to-playback) 에서 힌트를 얻을 수 있습니다.
-
+또한 -probesize 과 -analyzeduration 을 낮게 설정하면 streaming 을 좀 더 빨리 시작할수 있습니다.(ts 같은 muxer 에 scan 용도로도 사용이 가능합니다.
 Also setting -probesize and -analyzeduration to low values may help your stream start up more quickly (it uses these to scan for "streams" in certain muxers, like ts, where some can appears "later", and also to estimate the duration, which, for live streams, the latter you don't need anyway).  This should be unneeded by dshow input.
 
 Reducing cacheing at the client side can help, too, for instance mplayer has a "-nocache" option, other players may similarly has some type of pre-playback buffering that is occurring.  (The reality is mplayers -benchmark option has much more effect).
