@@ -161,7 +161,7 @@ The mpeg4 video codec sometimes also comes "within a few percentage" of the comp
 
 ## HTTP Live Streaming and Streaming with multiple bitrates
 
-FFmpeg supports splitting files (using "-f segment" for the output, see [segment muxer](http://ffmpeg.org/ffmpeg.html#segment_002c-stream_005fsegment_002c-ssegment)) into time based chunks, useful for [(HTTP live streaming]http://en.wikipedia.org/wiki/HTTP_Live_Streaming) style file output.  
+FFmpeg supports splitting files (using "-f segment" for the output, see [segment muxer](http://ffmpeg.org/ffmpeg.html#segment_002c-stream_005fsegment_002c-ssegment)) into time based chunks, useful for [HTTP live streaming](http://en.wikipedia.org/wiki/HTTP_Live_Streaming) style file output.  
 
 How to stream with several different simultaneous bitrates is described [here](http://sonnati.wordpress.com/2011/08/30/ffmpeg-%E2%80%93-the-swiss-army-knife-of-internet-streaming-%E2%80%93-part-iv/).
 
