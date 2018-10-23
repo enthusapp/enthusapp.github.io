@@ -3,13 +3,13 @@ layout: default
 comments: true
 ---
 
-원본 링크: (https://trac.ffmpeg.org/wiki/StreamingGuide)
+원본 링크: [https://trac.ffmpeg.org/wiki/StreamingGuide](https://trac.ffmpeg.org/wiki/StreamingGuide)
 
 # Streaming
 
-FFmpeg can basically stream through one of two ways:  It either streams to a some "other server", which re-streams for it to multiple clients, or it can stream via UDP/TCP directly to some single destination receiver, or alternatively directly to a multicast destination.  Theoretically you might be able to send to multiple receivers via [https://trac.ffmpeg.org/wiki/StreamingGuide](Creating Multiple Outputs) but there is no built-in full blown server.
+FFmpeg can basically stream through one of two ways:  It either streams to a some "other server", which re-streams for it to multiple clients, or it can stream via UDP/TCP directly to some single destination receiver, or alternatively directly to a multicast destination.  Theoretically you might be able to send to multiple receivers via [Creating Multiple Outputs](https://trac.ffmpeg.org/wiki/StreamingGuide) but there is no built-in full blown server.
 
-Servers which can receive from FFmpeg (to restream to multiple clients) include [https://trac.ffmpeg.org/wiki/Streaming%20media%20with%20ffserver](ffserver) (linux only, though with cygwin it might work on windows), or [http://en.wikipedia.org/wiki/Wowza_Media_Server](Wowza Media Server), or [http://en.wikipedia.org/wiki/Adobe_Flash_Media_Server](Flash Media Server), Red5, or [https://en.wikipedia.org/wiki/List_of_streaming_media_systems#Servers](various others). Even [http://en.wikipedia.org/wiki/VLC_media_player](VLC) can pick up the stream from ffmpeg, then redistribute it, acting as a server.  Since FFmpeg is at times more efficient than VLC at doing the raw encoding, this can be a useful option compared to doing both transcoding and streaming in VLC. [https://www.vultr.com/docs/setup-nginx-on-ubuntu-to-stream-live-hls-video](Nginx) also has an rtmp redistribution plugin, as does [http://h264.code-shop.com/trac/wiki](apache etc.) and there is probably more out there for apache, etc..  You can also live stream to online redistribution servers like own3d.tv or justin.tv (for instance streaming your desktop).  Also any [http://www.flashrealtime.com/list-of-available-rtmp-servers/](rtmp server) will most likely work to receive streams from FFmpeg (these typically require you to setup a running instance on a server).
+Servers which can receive from FFmpeg (to restream to multiple clients) include [ffserver](https://trac.ffmpeg.org/wiki/Streaming%20media%20with%20ffserver) (linux only, though with cygwin it might work on windows), or [Wowza Media Server](http://en.wikipedia.org/wiki/Wowza_Media_Server), or [Flash Media Server](http://en.wikipedia.org/wiki/Adobe_Flash_Media_Server), Red5, or [various others](https://en.wikipedia.org/wiki/List_of_streaming_media_systems#Servers). Even [VLC](http://en.wikipedia.org/wiki/VLC_media_player) can pick up the stream from ffmpeg, then redistribute it, acting as a server.  Since FFmpeg is at times more efficient than VLC at doing the raw encoding, this can be a useful option compared to doing both transcoding and streaming in VLC. [Nginx](https://www.vultr.com/docs/setup-nginx-on-ubuntu-to-stream-live-hls-video) also has an rtmp redistribution plugin, as does [apache etc.](http://h264.code-shop.com/trac/wiki) and there is probably more out there for apache, etc..  You can also live stream to online redistribution servers like own3d.tv or justin.tv (for instance streaming your desktop).  Also any [rtmp server](http://www.flashrealtime.com/list-of-available-rtmp-servers/) will most likely work to receive streams from FFmpeg (these typically require you to setup a running instance on a server).
 
 ## The -re flag
 
@@ -23,7 +23,7 @@ Here is what another person once did for broadcast:
 ffmpeg -f dshow -i video="Virtual-Camera" -preset ultrafast -vcodec libx264 -tune zerolatency -b 900k -f mpegts udp://10.1.0.102:1234
 ```
 
-And here is what another person [http://web.archiveorange.com/archive/v/DUtyPSinPqSIxjhedGQd](did):
+And here is what another person [did](http://web.archiveorange.com/archive/v/DUtyPSinPqSIxjhedGQd):
 ```
 ffmpeg -f dshow -i video="screen-capture-recorder":audio="Stereo Mix (IDT High Definition" \
 -vcodec libx264 -preset ultrafast -tune zerolatency -r 10 -async 1 -acodec libmp3lame -ab 24k -ar 22050 -bsf:v h264_mp4toannexb \
@@ -32,10 +32,10 @@ ffmpeg -f dshow -i video="screen-capture-recorder":audio="Stereo Mix (IDT High D
 
 NB that they also (for directshow devices) had to adjust the rtbufsize in that example.
 
-You can see a description of what some of these means, (for example bufsize, bitrate settings) in the [https://trac.ffmpeg.org/wiki/Encode/H.264](Encode/H.264).
+You can see a description of what some of these means, (for example bufsize, bitrate settings) in the [Encode/H.264](https://trac.ffmpeg.org/wiki/Encode/H.264).
 
 
-Here's how one guy broadcast a live stream (in this instance a [https://trac.ffmpeg.org/wiki/StreamingGuide](directshow|Capture/Desktop#Windows) screen capture device):
+Here's how one guy broadcast a live stream (in this instance a [directshow|Capture/Desktop#Windows](https://trac.ffmpeg.org/wiki/StreamingGuide) screen capture device):
 
 ```
 $ ffmpeg -y -loglevel warning -f dshow -i video="screen-capture-recorder" -vf crop=690:388:136:0 -r 30 -s 962x388 -threads 2 -vcodec libx264 -vpre baseline -vpre my_ffpreset -f flv rtmp:///live/myStream.sdp
@@ -74,11 +74,11 @@ ffmpeg -f x11grab -s 1920x1200 -framerate 15 -i :0.0+1920,0 -f pulse -ac 2 -i de
 
 ## Latency(지연)
 
-x264 stream 의 I-frame 은 250 frame 마다 한번 씩 발생하고 1개의 I-frame 도 없으면 수신자는 영상을 재생할 수 없습니다. 따라서 [https://trac.ffmpeg.org/wiki/Encode/H.264](x264의 zerolatency setting) 과 [http://mewiki.project357.com/wiki/X264_Encoding_Suggestions](frame 크기를 늘리고 품질은 낮추는 방법)을 이용해 I-frame 을 더 자주 보내는 방식으로 시작 지연을 줄일수 있습니다. 다만 증가된 I-frame 의 횟수만큼 stream 데이터의 양은 증가하게 됩니다. [http://ffmpeg.org/ffmpeg.html#Options](dshow audio_buffer_size) 를 사용하여 audio 에서 발생하는 지연을 줄이는 방법이 있으며 broadcast 서버의 지연을 최소화하는 방법, 그리고 마지막으로 수신 프로그램의 cache 를 비활성화 하는 방법이 있습니다.
+x264 stream 의 I-frame 은 250 frame 마다 한번 씩 발생하고 1개의 I-frame 도 없으면 수신자는 영상을 재생할 수 없습니다. 따라서 [x264의 zerolatency setting](https://trac.ffmpeg.org/wiki/Encode/H.264) 과 [frame 크기를 늘리고 품질은 낮추는 방법](http://mewiki.project357.com/wiki/X264_Encoding_Suggestions)을 이용해 I-frame 을 더 자주 보내는 방식으로 시작 지연을 줄일수 있습니다. 다만 증가된 I-frame 의 횟수만큼 stream 데이터의 양은 증가하게 됩니다. [dshow audio_buffer_size](http://ffmpeg.org/ffmpeg.html#Options) 를 사용하여 audio 에서 발생하는 지연을 줄이는 방법이 있으며 broadcast 서버의 지연을 최소화하는 방법, 그리고 마지막으로 수신 프로그램의 cache 를 비활성화 하는 방법이 있습니다.
 
 가끔 audio 코덱들은 각각에 존재하는 지연시간이 있기 때문에 libmp3lame 대신 speex, opus 를 사용하는것도 하나의 방법입니다.
 
-서버의 지연을 줄이는 방법은 [http://www.wowza.com/forums/content.php?81-How-to-achieve-the-lowest-latency-from-capture-to-playback](wowza) 에서 힌트를 얻을 수 있습니다.
+서버의 지연을 줄이는 방법은 [wowza](http://www.wowza.com/forums/content.php?81-How-to-achieve-the-lowest-latency-from-capture-to-playback) 에서 힌트를 얻을 수 있습니다.
 
 Also setting -probesize and -analyzeduration to low values may help your stream start up more quickly (it uses these to scan for "streams" in certain muxers, like ts, where some can appears "later", and also to estimate the duration, which, for live streams, the latter you don't need anyway).  This should be unneeded by dshow input.
 
@@ -94,7 +94,7 @@ You can also (if capturing from a live source) increase frame rate to decrease l
 
 Note also that using dshow's "rtbufsize" has the unfortunate side effect of sometimes allowing frames to "buffer" while it is waiting on encoding of previous frames, or waiting for them to be sent over the wire.  This means that if you use a higher value at all, it can cause/introduce added latency if it ever gets used (but if used, can be helpful for other aspects, like transmitting more frames overall consistently etc. so YMMV).  Almost certainly if you set a very large value for this, and then see the "buffer XX% full! dropping!" message, you are introducing latency.
 
-There is also apparently an option -fflags nobuffer which might possibly help, usually for receiving streams [https://www.ffmpeg.org/ffmpeg-formats.html#Format-Options](reduce latency).
+There is also apparently an option -fflags nobuffer which might possibly help, usually for receiving streams [reduce latency](https://www.ffmpeg.org/ffmpeg-formats.html#Format-Options).
 
 mpv udp://236.0.0.1:2000 --no-cache --untimed --no-demuxer-thread --video-sync=audio --vd-lavc-threads=1
 
@@ -119,7 +119,7 @@ See also "Point to point streaming" section esp. if you use UDP etc.
 
 ### See also
 
-[http://stackoverflow.com/a/12085571/32453](Here) is a list of some other ideas to try (using VBR may help, etc.)
+[Here](http://stackoverflow.com/a/12085571/32453) is a list of some other ideas to try (using VBR may help, etc.)
 
 ## CPU usage / File size
 
@@ -127,7 +127,7 @@ In general, the more CPU you use to compress, the better the output image will b
 
 Basically, the easiest way to save cpu is to decrease the input frame rate/size, or decrease the output frame rate/size.
 
-Also you could (if capturing from live source), instruct the live source to feed a "smaller stream" (ex: webcam stream 640x480 instead of 1024x1280), or you could set a lower output "output quality" setting (q level), or specify a lower output desired bitrate (see [https://trac.ffmpeg.org/wiki/Encode/H.264](Encode/H.264) for a background).  Or try a different output codec, or specify new parameters to your codec (for instance, a different profile or preset for [https://trac.ffmpeg.org/wiki/Encode/H.264](libx264).  Specifying $ -threads 0 instructs the encoder to use all available cpu cores, which is the default.  You could also resize the input first, before transcoding it, so it's not as large.  Applying a smoothing filter like hqdn3d before encoding might help it compress better, yielding smaller files.
+Also you could (if capturing from live source), instruct the live source to feed a "smaller stream" (ex: webcam stream 640x480 instead of 1024x1280), or you could set a lower output "output quality" setting (q level), or specify a lower output desired bitrate (see [Encode/H.264](https://trac.ffmpeg.org/wiki/Encode/H.264) for a background).  Or try a different output codec, or specify new parameters to your codec (for instance, a different profile or preset for [libx264](https://trac.ffmpeg.org/wiki/Encode/H.264).  Specifying $ -threads 0 instructs the encoder to use all available cpu cores, which is the default.  You could also resize the input first, before transcoding it, so it's not as large.  Applying a smoothing filter like hqdn3d before encoding might help it compress better, yielding smaller files.
 
 You can also set a lower output frame rate to of course decrease cpu usage.  
 
@@ -137,7 +137,7 @@ Sometimes you can change the "pixel formats" somehow, like using rgb16 instead o
 
 ## Streaming a simple RTP audio stream from FFmpeg
 
-FFmpeg can stream a single stream using the [http://en.wikipedia.org/wiki/Real-time_Transport_Protocol](RTP protocol). In order to avoid buffering problems on the other hand, the streaming should be done through the -re option, which means that the stream will be streamed in real-time (i.e. it slows it down to simulate a live streaming [http://ffmpeg.org/ffmpeg.html](source).
+FFmpeg can stream a single stream using the [RTP protocol](http://en.wikipedia.org/wiki/Real-time_Transport_Protocol). In order to avoid buffering problems on the other hand, the streaming should be done through the -re option, which means that the stream will be streamed in real-time (i.e. it slows it down to simulate a live streaming [source](http://ffmpeg.org/ffmpeg.html).
 
 For example the following command will generate a signal, and will stream it to the port 1234 on localhost:
 ```
@@ -153,23 +153,23 @@ Note that rtp by default uses UDP, which, for large streams, can cause packet lo
 
 ## Codecs
 
-The most popular streaming codec is probably [http://www.videolan.org/developers/x264.html](libx264), though if you're streaming to a device which requires a "crippled" baseline h264 implementation, you can use the x264 "baseline" profile.  Some have have argued that the mp4 video codec is [http://forums.macrumors.com/showthread.php?t=398016](better) than x264 baseline, because it encodes about as well with less cpu.  You may be able to use other codecs, like mpeg2video, or really any other video codec you want, typically, as long as your receiver can decode it, if it suits your needs.
+The most popular streaming codec is probably [libx264](http://www.videolan.org/developers/x264.html), though if you're streaming to a device which requires a "crippled" baseline h264 implementation, you can use the x264 "baseline" profile.  Some have have argued that the mp4 video codec is [better](http://forums.macrumors.com/showthread.php?t=398016) than x264 baseline, because it encodes about as well with less cpu.  You may be able to use other codecs, like mpeg2video, or really any other video codec you want, typically, as long as your receiver can decode it, if it suits your needs.
 
-Also note that encoding it to the x264 "baseline" is basically a "compatibility mode" for older iOS devices or the like, see [http://sonnati.wordpress.com/2011/08/30/ffmpeg-%E2%80%93-the-swiss-army-knife-of-internet-streaming-%E2%80%93-part-iv/](here). 
+Also note that encoding it to the x264 "baseline" is basically a "compatibility mode" for older iOS devices or the like, see [here](http://sonnati.wordpress.com/2011/08/30/ffmpeg-%E2%80%93-the-swiss-army-knife-of-internet-streaming-%E2%80%93-part-iv/). 
 
 The mpeg4 video codec sometimes also comes "within a few percentage" of the compression of x264 "normal settings", but uses much less cpu to do the encoding.  See http://ffmpeg.zeranoe.com/forum/viewtopic.php?f=7&t=631&hilit=mpeg4+libx264+cores&start=10#p2163 for some graphs (which may be slightly outdated).  Basically in that particular test it was 54 fps to 58 fps (libx264 faster), and libx264 file was 5.1MB and mpeg4 was 6MB, but mpeg4 used only half as much cpu for its computation, so take it with a grain of salt.
 
 ## HTTP Live Streaming and Streaming with multiple bitrates
 
-FFmpeg supports splitting files (using "-f segment" for the output, see [http://ffmpeg.org/ffmpeg.html#segment_002c-stream_005fsegment_002c-ssegment](segment muxer)) into time based chunks, useful for [http://en.wikipedia.org/wiki/HTTP_Live_Streaming](HTTP live streaming) style file output.  
+FFmpeg supports splitting files (using "-f segment" for the output, see [segment muxer](http://ffmpeg.org/ffmpeg.html#segment_002c-stream_005fsegment_002c-ssegment)) into time based chunks, useful for [(HTTP live streaming]http://en.wikipedia.org/wiki/HTTP_Live_Streaming) style file output.  
 
-How to stream with several different simultaneous bitrates is described [http://sonnati.wordpress.com/2011/08/30/ffmpeg-%E2%80%93-the-swiss-army-knife-of-internet-streaming-%E2%80%93-part-iv/](here).
+How to stream with several different simultaneous bitrates is described [here](http://sonnati.wordpress.com/2011/08/30/ffmpeg-%E2%80%93-the-swiss-army-knife-of-internet-streaming-%E2%80%93-part-iv/).
 
 See also http://sonnati.wordpress.com/2012/07/02/ffmpeg-the-swiss-army-knife-of-internet-streaming-part-v
 
 ## Saving a file and Streaming at the same time
 
-See [https://trac.ffmpeg.org/wiki/StreamingGuide](Creating multiple outputs).  Basically, you may only be able to accept from a webcam or some other source from at most one process, in this case you'll need to "split" your output if you want to save it and stream it simultaneously.  Streaming and saving simultaneously (and only encoding once) can also save cpu.
+See [Creating multiple outputs](https://trac.ffmpeg.org/wiki/StreamingGuide).  Basically, you may only be able to accept from a webcam or some other source from at most one process, in this case you'll need to "split" your output if you want to save it and stream it simultaneously.  Streaming and saving simultaneously (and only encoding once) can also save cpu.
 
 ## Transcoding / repeating
 
@@ -184,7 +184,7 @@ One mailing list user wrote this, quote:
 
  -i 'udp://localhost:5000?fifo_size=1000000&overrun_nonfatal=1' tells ffmpeg where to pull the input stream from. The parts after the ? are probably not needed most of the time, but I did need it after all.
 
- -crf 30 sets the Content Rate Factor. That's an x264 argument that tries to keep reasonably consistent video quality, while varying bitrate during more 'complicated' scenes, etc. A value of 30 allows somewhat lower quality and bit rate.  See [https://trac.ffmpeg.org/wiki/Encode/H.264](Encode/H.264).
+ -crf 30 sets the Content Rate Factor. That's an x264 argument that tries to keep reasonably consistent video quality, while varying bitrate during more 'complicated' scenes, etc. A value of 30 allows somewhat lower quality and bit rate.  See [Encode/H.264](https://trac.ffmpeg.org/wiki/Encode/H.264).
 
  -preset ultrafast as the name implies provides for the fastest possible encoding. If some tradeoff between quality and encode speed, go for the speed. This might be needed if you are going to be transcoding multiple streams on one machine.
 
@@ -216,7 +216,7 @@ FFmpeg doesn't (today) support varying the encoding bitrate based on fluctuating
 
 If you get a "black/blank" screen in the client, try sending it yuv422p or yuv420p type input.  Some servers get confused if you send them yuv444 input (which is the default for libx264).
 
-NB that when you are testing your stream settings, you may want to test them with both VLC and [http://ffmpeg.org/ffplay.html](FFplay), as FFplay sometimes introduces its own artifacts when it is scaled (FFplay uses poor quality default scaling, which can be inaccurate).  Don't use ffplay as your baseline for determining quality.  
+NB that when you are testing your stream settings, you may want to test them with both VLC and [FFplay](http://ffmpeg.org/ffplay.html), as FFplay sometimes introduces its own artifacts when it is scaled (FFplay uses poor quality default scaling, which can be inaccurate).  Don't use ffplay as your baseline for determining quality.  
 
 ## Point to point streaming
 
@@ -273,7 +273,7 @@ Another option is to use RTP (which by default uses UDP) but by specifying it us
 ffmpeg -i input -f rtsp -rtsp_transport tcp rtsp://localhost:8888/live.sdp
 ```
 
-(For meanings of options see [http://ffmpeg.org/ffmpeg-protocols.html#rtsp](official documentation).
+(For meanings of options see [official documentation](http://ffmpeg.org/ffmpeg-protocols.html#rtsp).
 
 Then you may receive it like this (ffplay or ffmpeg):
 
@@ -288,7 +288,7 @@ With tcp based streams you can probably use any formatting/muxer, but with udp  
 
 If you are forced to use udp (for instance you need to broadcast to a multicast port for whatever reason) then you may be able to avoid the packet loss by (sending less data or sending the same frames over and over again so they have a higher chance of being received).
 
-See also the section on i-frames in [https://trac.ffmpeg.org/wiki/StreamingGuide#Latency](Latency).
+See also the section on i-frames in [Latency](https://trac.ffmpeg.org/wiki/StreamingGuide#Latency).
 
 Final working p2p client, with multicast:
 
@@ -307,4 +307,4 @@ mplayer -demuxer +mpegts -framedrop -benchmark ffmpeg://udp://236.0.0.1:2000?fif
 
 ## External links
 
-* [http://sonnati.wordpress.com/2011/08/30/ffmpeg-–-the-swiss-army-knife-of-internet-streaming-–-part-iv/](Fabio Sonnati's tutorial on streaming with FFmpeg)
+* [Fabio Sonnati's tutorial on streaming with FFmpeg](http://sonnati.wordpress.com/2011/08/30/ffmpeg-–-the-swiss-army-knife-of-internet-streaming-–-part-iv/)
