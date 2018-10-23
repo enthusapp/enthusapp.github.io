@@ -3,7 +3,7 @@ layout: default
 comments: true
 ---
 
-원본 링크: [https://trac.ffmpeg.org/wiki/StreamingGuide]
+원본 링크: (https://trac.ffmpeg.org/wiki/StreamingGuide)
 
 # Streaming
 
@@ -72,13 +72,13 @@ Example 3, second screen (on dual screen setup):
 ffmpeg -f x11grab -s 1920x1200 -framerate 15 -i :0.0+1920,0 -f pulse -ac 2 -i default -c:v libx264 -preset fast -pix_fmt yuv420p -s 1280x800 -c:a aac -b:a 160k -ar 44100 -threads 0 -f flv "rtmp://live.twitch.tv/app/live_********_******************************"
 ```
 
-## Latency
+## Latency(지연)
 
-You may be able to decrease initial "startup" latency by specifing that I-frames come "more frequently" (or basically always, in the case of [https://trac.ffmpeg.org/wiki/Encode/H.264](x264)'s zerolatency setting), though this can increase frame size and decrease quality, see [http://mewiki.project357.com/wiki/X264_Encoding_Suggestions](here) for some more background.  Basically for typical x264 streams, it inserts an I-frame every 250 frames.  This means that new clients that connect to the stream may have to wait up to 250 frames before they can start receiving the stream (or start with old data).  So increasing I-frame frequency (makes the stream larger, but might decrease latency).  For real time captures you can also decrease latency of audio in windows dshow by using the dshow audio_buffer_size [http://ffmpeg.org/ffmpeg.html#Options](setting).  You can also decrease latency by tuning any broadcast server you are using to minimize latency, and finally by tuning the client that receives the stream to not "cache" any incoming data, which, if it does, increases latency.
+x264 stream 의 I-frame 은 250 frame 마다 한번 씩 발생하고 1개의 I-frame 도 없으면 수신자는 영상을 재생할 수 없습니다. 따라서 [https://trac.ffmpeg.org/wiki/Encode/H.264](x264의 zerolatency setting) 과 [http://mewiki.project357.com/wiki/X264_Encoding_Suggestions](frame 크기를 늘리고 품질은 낮추는 방법)을 이용해 I-frame 을 더 자주 보내는 방식으로 시작 지연을 줄일수 있습니다. 다만 증가된 I-frame 의 횟수만큼 stream 데이터의 양은 증가하게 됩니다. [http://ffmpeg.org/ffmpeg.html#Options](dshow audio_buffer_size) 를 사용하여 audio 에서 발생하는 지연을 줄이는 방법이 있으며 broadcast 서버의 지연을 최소화하는 방법, 그리고 마지막으로 수신 프로그램의 cache 를 비활성화 하는 방법이 있습니다.
 
-Sometimes audio codecs also introduce some latency of their own.  You may be able to get less latency by using speex, for example, or opus, in place of libmp3lame.
+가끔 audio 코덱들은 각각에 존재하는 지연시간이 있기 때문에 libmp3lame 대신 speex, opus 를 사용하는것도 하나의 방법입니다.
 
-You will also want to try and decrease latency at the server side, for instance [http://www.wowza.com/forums/content.php?81-How-to-achieve-the-lowest-latency-from-capture-to-playback](wowza) hints.
+서버의 지연을 줄이는 방법은 [http://www.wowza.com/forums/content.php?81-How-to-achieve-the-lowest-latency-from-capture-to-playback](wowza) 에서 힌트를 얻을 수 있습니다.
 
 Also setting -probesize and -analyzeduration to low values may help your stream start up more quickly (it uses these to scan for "streams" in certain muxers, like ts, where some can appears "later", and also to estimate the duration, which, for live streams, the latter you don't need anyway).  This should be unneeded by dshow input.
 
