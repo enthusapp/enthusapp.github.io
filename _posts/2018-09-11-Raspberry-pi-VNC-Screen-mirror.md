@@ -44,8 +44,3 @@ tightVNC, vnc4server, realVNC 등이 있지만 Ubuntu Gnome 의 vino 면 충분�
 - tigerVNC
   - real VNC client 에 가장 가까운 open source vnc
   - 안정성이 궁금하다.
-
-## VNC client monitoring
-VNC server 에서 연결된 client 의 상태를 감시한다. listen 사용
-
-TODO: 구현중
