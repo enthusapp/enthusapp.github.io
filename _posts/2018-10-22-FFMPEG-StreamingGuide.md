@@ -5,6 +5,10 @@ comments: true
 
 원본 링크: [https://trac.ffmpeg.org/wiki/StreamingGuide](https://trac.ffmpeg.org/wiki/StreamingGuide)
 
+전체를 다 해석하려고 했지만 몇 문단을 해석하자마자 원하는 지연문제가 해결되고 말았다. 아래의 문서는 그만큼 강력한 솔루션을 제공하고 있다.
+
+다른 이들에게 조금이라도 도움이 될 가능성을 생각해 자료를 남겨놓는다.
+
 # Streaming
 
 FFmpeg can basically stream through one of two ways:  It either streams to a some "other server", which re-streams for it to multiple clients, or it can stream via UDP/TCP directly to some single destination receiver, or alternatively directly to a multicast destination.  Theoretically you might be able to send to multiple receivers via [Creating Multiple Outputs](https://trac.ffmpeg.org/wiki/StreamingGuide) but there is no built-in full blown server.
@@ -78,18 +82,17 @@ x264 stream 은 250 frame 마다 1개의 I-frame 을 사용합니다. 따라서 
 
 libmp3lame 대신 speex, opus 를 사용해 audio 코덱에 존재하는 지연시간을 줄이고, [wowza](http://www.wowza.com/forums/content.php?81-How-to-achieve-the-lowest-latency-from-capture-to-playback) 에 설명된 방법으로 서버의 지연을 줄일 수도 있습니다.
 
-또한 -probesize 과 -analyzeduration 을 낮게 설정하면 streaming 을 좀 더 빨리 시작할수 있습니다.(ts 같은 muxer 에 scan 용도로도 사용이 가능합니다.
-Also setting -probesize and -analyzeduration to low values may help your stream start up more quickly (it uses these to scan for "streams" in certain muxers, like ts, where some can appears "later", and also to estimate the duration, which, for live streams, the latter you don't need anyway).  This should be unneeded by dshow input.
+또한 player의 -probesize 과 -analyzeduration(ffplay option) 을 낮게 설정하면 streaming 을 좀 더 빨리 시작할수 있습니다.(ts 같은 muxer 에 scan 용도로도 사용하는데 이것으로인해 화면이 늦게 나타나는 경우가 있습니다.) 이 설정은 dshow 입력에는 적용되지 않습니다.
 
-Reducing cacheing at the client side can help, too, for instance mplayer has a "-nocache" option, other players may similarly has some type of pre-playback buffering that is occurring.  (The reality is mplayers -benchmark option has much more effect).
+player의 캐싱을 줄이는것도 도움이됩니다 예를들어 mplayer 에서 -nocache 옵션이 있고, 다른 플레이어에도 유사한 pre-playback buffering 이 존재합니다.(mplayer 에서는 -nocache 와 함께 -benchmark 옵션을 사용하는 것이 효과적입니다.)
 
-Using an encoder that encodes more quickly (or possibly even raw format?) might reduce latency.
+속도가 빠른 encoder 를 사용하는것도 지연을 줄입니다.(가능하면 raw format 이 가장 빠르다.)
 
-You might get less latency by using one of the "point to point" protocols described in this document, at well. You'd lose the benefit of having a server, of course.
+뒤에 설명된 P2P(point to point) 프로토콜을 사용하는 것도 지연을 줄이는 한가지 방법입니다. 물론 서버로서의 장점을 잃어버리게 되는것을 유념해야 합니다.
 
 NB that a client when it initially starts up may have to wait until the next i-frame to be able to start receiving the stream (ex: if receiving UDP), so the GOP setting (-g) i-frame interval will have an effect on how quickly they can start streaming (i.e. they must receive an i-frame before they start).  Setting it to a lower number means it will use more bandwidth, but clients will be able to connect more quickly (the default for x264 is 250--so for 30 fps that means an i-frame only once every 10 seconds or so).  So it's a tradeoff if you adjust it.  This does not affect actual latency (just connection time) since the client can still display frames very quickly after and once it has received its first i-frame.  Also if you're using a lossy transport, like UDP, then an i-frame represents "the next change it will have to repair the stream" if there are problems from packet loss.
 
-You can also (if capturing from a live source) increase frame rate to decrease latency (which affects throughput and also i-frame frequency, of course).  This obvious sends packets more frequently, so (with 5 fps, you introduce at least a 0.2s latency, with 10 fps 0.1s latency) but it also helps clients to fill their internal buffers, etc. more quickly.
+Framerate 을 증가시키는 것도 지연을 줄이게 됩니다. i-frame 이 더 자주발생할 뿐만 아니라 player 가 더 빨리 buffer 를 채울수 있기 때문입니다.
 
 Note also that using dshow's "rtbufsize" has the unfortunate side effect of sometimes allowing frames to "buffer" while it is waiting on encoding of previous frames, or waiting for them to be sent over the wire.  This means that if you use a higher value at all, it can cause/introduce added latency if it ever gets used (but if used, can be helpful for other aspects, like transmitting more frames overall consistently etc. so YMMV).  Almost certainly if you set a very large value for this, and then see the "buffer XX% full! dropping!" message, you are introducing latency.
 
@@ -100,7 +103,7 @@ mpv udp://236.0.0.1:2000 --no-cache --untimed --no-demuxer-thread --video-sync=a
 may be useful.
 
 
-### Testing latency
+### Testing latency(지연 테스트)
 
 By default, ffplay (as a receiver for testing latency) introduces significant latency of its own, so if you use it for testing (see troubleshooting section) it may not reflect latency accurately. FFplay introduces some video artifacts, also, see notes for it in "troubleshooting streaming" section  Also some settings mentioned above like "probesize" might help it start more quickly. Also useful:
 ```
