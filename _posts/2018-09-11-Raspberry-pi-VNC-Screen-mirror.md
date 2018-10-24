@@ -8,6 +8,9 @@ comments: true
 ## 문제점
 Client 의 영상 응답속도 문제가 있다. Server 의 화면과 동영상의 해상도를 낮추면 응답속도 문제가 적게 나타난다.(응답속도 문제를 확인하려면 영상을 전체화면으로 재생하고 변화율이 큰 동영상을 재생하면 된다.) 고용량 네트워크 환경에서 어떻게 변하는지, vino 설정 변경이 가능한지는 이후 확인해야할 숙제이다.
 
+## 해결안
+VNC 로는 원하는 솔루션을 찾을 수 없었다. FFMPEG 이 솔루션이다.
+
 ## Linux VNC server
 tightVNC, vnc4server, realVNC 등이 있지만 Ubuntu Gnome 의 vino 면 충분하다.
 
