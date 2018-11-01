@@ -14,6 +14,9 @@ Scrot 설치/실행한다. 자세한 링크: [https://www.imore.com/how-take-scr
 ## Systemd 으로 프로그램 실행하기
 [http://www.diegoacuna.me/how-to-run-a-script-as-a-service-in-raspberry-pi-raspbian-jessie/](http://www.diegoacuna.me/how-to-run-a-script-as-a-service-in-raspberry-pi-raspbian-jessie/) 참조, 만약 GUI 를 실행하려면 `[Unit]` 에 `User=root` 를 추가하고 `[Service]` 에는 `Environment=DISPLAY=:0.0` 과 사용자 인증을 위한 `Environment=XAUTHORITY=/home/dogs/.Xauthority` 변수를 추가해야 한다.
 
+##### Ubuntu 에서 GUI 프로그램 systemd 로 실행하기
+User=root -> User=(gui user name) 변경하여 [Service] 로 위치를 옮겨야 한다.
+
 ##### Systemd 로그 출력
 systemd 를 사용하면 무엇보다 로그를 /var/log 아래서 관리할수 있다는 점이 편리하다. 로그 rotation 나 시간단위 backup 및 로그 삭제를 rlogsys 에서 알아서 해주니 로그 오버플로우, 로그 백업에 대한 걱정을 안해도 된다. python 프로그램의 경우 `-u` 옵션을 실행라인에 추가해야 buffering 없이 syslog 에 출력된다.
 
