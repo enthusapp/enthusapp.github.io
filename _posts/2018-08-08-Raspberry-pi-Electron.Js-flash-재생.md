@@ -19,3 +19,6 @@ index.html 에 embed 로 Flash 파일 추가하고 main.js 에서 index.html 을
 
 ## Electron.JS v1.6.x ~ v1.8.x bug
 Electron.JS v1.6.x ~ v1.8.x 가 Raspberry Pi 에서 동작안되는 버그있음, v2.0.0 이상 버젼 설치로 해결
+
+## full screen 재생
+HTML DOCTYPE 이 선언되어 있으면 embed element 의 full screen 재생이 안되는 문제가 있다. [http://forums.mozillazine.org/viewtopic.php?t=538403](http://forums.mozillazine.org/viewtopic.php?t=538403)에 따르면 DOCTYPE 때문이 아니라 다른 문법의 문제로 DOCTYPE 을 선언했을때 발생하는 것으로 보인다.
