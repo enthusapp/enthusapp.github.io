@@ -34,7 +34,7 @@ PATH="$HOME/bin:$PATH" PKG_CONFIG_PATH="$HOME/ffmpeg_build/lib/pkgconfig" ./conf
   --enable-libvorbis \
   --enable-libx264 \
   --enable-nonfree && \
-PATH="$HOME/bin:$PATH" make && \
+PATH="$HOME/bin:$PATH" make -j 4 && \
 make install && \
 hash -r
 ```
