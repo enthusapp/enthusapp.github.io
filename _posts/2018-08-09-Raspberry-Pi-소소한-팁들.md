@@ -26,7 +26,7 @@ systemd 를 사용하면 무엇보다 로그를 /var/log 아래서 관리할수 
 1. [dd 와 gzip 을 사용한 방법](http://www.seleads.com/dd-used-space-only-image-file-using-gzip-solved/) -> 보관하는 이미지의 크기는 줄어들지만 읽고 쓰는 시간이 길어져 win32 imager 대신 쓸수는 없다. 하지만 작은 사이즈의 sdcard 를 사용해야 할때는 필요할 수 있다. 같은 회사 제품도 실제 sector 크기가 다르기 때문에 실제 구매를 해봐야만 sdcard 의 sector 수를 알수 있는 것으로 보인다. 한편, dd 는 기본적으로 더 작은 사이즈로 image 를 만들지 못한다. 파일 시스템이 데이터를 파티션 섹터에 분산하여 저장하기 때문인것으로 보인다.
 1. [rsync 사용](https://www.ostechnix.com/backup-entire-linux-system-using-rsync/) -> 부팅안됨, 파일복사 방법 기반 재확인이 필요하다.
 1. resize2fs ?
-1. 정답: dd 와 rsync 사용한 [rpi-clone](https://github.com/billw2/rpi-clone)
+1. 정답: ~dd 와 rsync 사용한 [rpi-clone](https://github.com/billw2/rpi-clone)~ raspberrypi 에 기본 내장되어 있는 SD Card Copier 를 사용하면된다. [https://www.raspberrypi.org/blog/another-update-raspbian/](https://www.raspberrypi.org/blog/another-update-raspbian/) command line 으로는 piclone 이 있다.
 
 ## Raspberry Pi 부팅과정에서 VNC client 
 [https://www.raspberrypi.org/forums/viewtopic.php?f=28&t=71698](https://www.raspberrypi.org/forums/viewtopic.php?f=28&t=71698)
