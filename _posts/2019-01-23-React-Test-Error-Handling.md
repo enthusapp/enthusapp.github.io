@@ -32,3 +32,8 @@ component.instance().download = () => { };
 
 에러를 막을 뿐만 아니라, 문제 발생전에 입력되는 parameter 의 테스트도 가능하다.
 문제의 API 동작 테스트는 수동 테스트로 하거나, Web API 의 기본 동작이라 테스트 필요가 없을 수 있기 때문에 최종 출력값 확인을 위한 방법으로 사용이 가능하다.
+
+**Mock 삽입**
+
+교체할 함수를 별도 제작하는것보다 `mockFn = new jest.fn()` 으로 생성한 `mockFn` 를 할당하는 것이 좋다.
+jest mock 함수를 사용하면 `toHaveBeenCalled`, 입력 argument, 출력 simulation 등 미리 만들어진 API 를 사용할 수 있기 때문이다.
